@@ -15,6 +15,7 @@ var userSchema = mongoose.Schema({
     zipcode: { type: String, required: false },
   },
   profileImage: { type: String, required: false },
+  interests: { type: String, required: false },
   phone: { type: Number, required: false },
 });
 
