@@ -10,9 +10,7 @@ const registerJsonChecks = [
 ];
 const loginJsonChecks = [
   check("email", "Please provide username").isEmail(),
-  check("password", "Password should be minimum 6 characters").isLength({
-    min: 6,
-  }),
+  check("password", "Please provide password").not().isEmpty(),
 ];
 
 const addressCheck = [
@@ -44,9 +42,7 @@ const productsCreateCheck = [
   body("products.*.image").not().isEmpty(),
 ];
 
-const productIdCheck=[
-  param("productId").exists().isAlphanumeric()
-]
+const productIdCheck = [param("productId").exists().isAlphanumeric()];
 function getErrorJson(message) {
   return getJsonResponse("ERROR", message);
 }
@@ -62,10 +58,10 @@ function getJsonResponse(status, message) {
 }
 
 const ROLES = {
-	ADMIN: "ADMIN",
-	GUEST: "GUEST",
-	USER: "USER",
-}
+  ADMIN: "ADMIN",
+  GUEST: "GUEST",
+  USER: "USER",
+};
 
 exports.registerJsonChecks = registerJsonChecks;
 exports.loginJsonChecks = loginJsonChecks;
@@ -77,4 +73,4 @@ exports.getErrorJson = getErrorJson;
 exports.getSuccessJson = getSuccessJson;
 exports.getJsonResponse = getJsonResponse;
 
-exports.ROLES=ROLES;
+exports.ROLES = ROLES;
