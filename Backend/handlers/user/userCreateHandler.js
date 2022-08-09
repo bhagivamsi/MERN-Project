@@ -25,6 +25,7 @@ function registerHandler() {
       address,
       profileImage,
       phone,
+      interests,
     } = req.body;
     try {
       let user = await User.findOne({ email });
@@ -45,6 +46,7 @@ function registerHandler() {
         address,
         profileImage,
         phone,
+        interests,
       });
       const salt = await bcrypt.genSalt(10);
 

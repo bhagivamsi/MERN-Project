@@ -23,7 +23,7 @@ export default function ProfileSection() {
     <Container className="h-auto align-middle mt-5 mb-5 border  border-1 p-4 col-10 border-dark">
       <Row>
         <Col xs lg="6">
-          <UserImageForm userInfo={userInfo} />
+          <UserImageForm userInfo={userInfo} updateUserInfo={updateUserInfo}/>
         </Col>
         <Col xs lg="6">
           <UserInfoDisplay userInfo={userInfo} />

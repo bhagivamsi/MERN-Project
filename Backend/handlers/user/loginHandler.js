@@ -33,7 +33,14 @@ function loginHandler() {
           .json({ status: "ERROR", message: "Incorrect username/password" });
       }
 
-      let payload = { user: { id: user.id }, role: user.role };
+      let payload = {
+        user: {
+          id: user.id,
+          firstName: user.firstName,
+          lastName: user.lastName,
+        },
+        role: user.role,
+      };
       jwt.sign(payload, "randomString", { expiresIn: 10000 }, (err, token) => {
         if (err) {
           throw e;
@@ -42,6 +49,9 @@ function loginHandler() {
           status: "success",
           message: "user logged in successfully",
           accessToken: token,
+          firstName: user.firstName,
+          lastName: user.lastName,
+          role: user.role,
         });
       });
     } catch (e) {

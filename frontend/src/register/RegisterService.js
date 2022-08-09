@@ -8,6 +8,8 @@ function RegisterService(
   email,
   password,
   confirmPassword,
+  interests,
+  phone,
   updateRegisterStatusMessage
 ) {
   if (password !== confirmPassword) {
@@ -22,9 +24,13 @@ function RegisterService(
       lastName,
       password,
       email,
+      interests,
+      phone,
     })
     .then((res) => {
-      updateRegisterStatusMessage(res.data.status + ". Redirecting to login page in 5seconds");
+      updateRegisterStatusMessage(
+        res.data.status + ". Redirecting to login page in 5seconds"
+      );
     })
     .catch((e) => {
       updateRegisterStatusMessage(e.response.data.message);

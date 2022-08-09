@@ -9,25 +9,31 @@ const Category = require("../../models/category-model");
 
 function productsCreateHandler() {
   return async (req, res) => {
-    if (!isAdmin(req, res) || checkForValidationErrors(req, res)) {
+    if (!isAdmin(req, res)){//} || checkForValidationErrors(req, res)) {
       return res;
     }
 
-    let products = req.body.products;
-    // console.log(products);
+    let products = req.body;
     try {
-      //find and create missing categories
-      //update products with new categories
-      //save products
+      let promiseDone = false;
+      let productImageData = req.files.productImage;
+      productImageData
+        .mv("./public/images/" + productImageData.name)
+        .then((res) => {
+          promiseDone = true;
+        });
 
-      for (var i = 0; i < products.length; i++) {
-        let category = await Category.findOne({ name: products[i].category });
-        if (category == null) {
-          category = new Category({ name: products[i].category });
-          category = await category.save();
-        }
-        products[i].category = category;
+      while (!promiseDone) {
+        break;
       }
+
+      let category = await Category.findOne({ name: products.category });
+      if (category == null) {
+        category = new Category({ name: products.category });
+        category = await category.save();
+      }
+      products.image = productImageData.name;
+      products.category = category;
 
       await Product.insertMany(products);
       return res

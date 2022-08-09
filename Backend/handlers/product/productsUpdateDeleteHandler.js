@@ -17,7 +17,7 @@ function productUpdateHandler() {
         {
           _id: req.params.productId,
         },
-        req.body.product
+        req.body
       );
       console.log(productToUpdate);
 

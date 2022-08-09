@@ -6,7 +6,7 @@ const Product = require("../../models/products-model");
 function checkoutHandler() {
   return async (req, res) => {
     let role = req.role;
-    let { user, cart } = req.body;
+    let { user, cart, address } = req.body;
 
     let order = new Orders();
     order.user = user;
@@ -29,11 +29,11 @@ function checkoutHandler() {
         updatedCart[i].quantity = cart[i].quantity;
       }
 
-      let orderToSave = new Orders({ user: user, cart: updatedCart });
+      let orderToSave = new Orders({ user: user, cart: updatedCart, address });
       orderToSave = await orderToSave.save();
 
       console.log(orderToSave);
-      return res.status(200).json(getSuccessJson("order placed successfully"));
+      return res.status(200).json(getSuccessJson("Order placed successfully"));
     } catch (e) {
       console.log(e);
       return res.status(500).json(getErrorJson("Unexpected error ocurred"));
@@ -49,7 +49,7 @@ async function getUser(role, user, userId) {
         .status(400)
         .json(getErrorJson("Password is not allowed for a guest"));
     }
-    let existingUser = await User.findOne({ role: user.role, ...user });
+    let existingUser = await User.findOne({ ...user });
     if (existingUser == null) {
       user = await new User(user).save();
     } else {

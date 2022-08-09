@@ -15,7 +15,7 @@ const {
 } = require("../handlers/product/productsUpdateDeleteHandler");
 const auth = require("../middleware/auth");
 
-router.post("/products", auth, productsCreateCheck, productsCreateHandler());
+router.post("/products", auth, productsCreateHandler());
 router.delete(
   "/products/:productId",
   auth,

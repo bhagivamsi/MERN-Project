@@ -10,18 +10,19 @@ function getOrders() {
       let orderSelection = {};
       switch (role) {
         case ROLES.ADMIN:
-            console.log("ADMIN GET ALL ORDERS ");
+          console.log("ADMIN GET ALL ORDERS ");
           orderSelection = {};
           break;
         case ROLES.GUEST:
-          return res.status(400).json(getErrorJson("You are not authorized"));
+        // return res.status(400).json(getErrorJson("You are not authorized"));
         case ROLES.USER:
           let user = await User.findById(req.user.id);
           orderSelection = { user: user };
           break;
       }
 
-      let orders = await Orders.find(orderSelection);
+      let orders = await Orders.find(orderSelection).sort({ isDelivered: 1 });
+      order = await Orders.populate(orders, ["user", "cart.product"]);
       console.log(orders);
 
       return res.status(200).json({ status: "SUCCESS", orders });

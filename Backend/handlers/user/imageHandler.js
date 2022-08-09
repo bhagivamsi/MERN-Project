@@ -23,9 +23,19 @@ function updateImageHandler() {
   return async (req, res) => {
     const userId = req.user;
     try {
-      const { profileImage } = req.body;
-      await updateProfileImage(userId, profileImage);
+      console.log(req.files.profileImage);
+      let promiseDone = false;
+      let profileImageData = req.files.profileImage;
+      profileImageData
+        .mv("./public/images/" + profileImageData.name)
+        .then((res) => {
+          promiseDone = true;
+        });
 
+      await updateProfileImage(userId, profileImageData.name);
+      while (!promiseDone) {
+        break;
+      }
       return res
         .status(200)
         .json(getSuccessJson("profile image updated successfully."));
@@ -42,12 +52,10 @@ function getImageHandler() {
     try {
       let user = await User.findById(userId.id);
 
-      return res
-        .status(200)
-        .json({
-          ...getSuccessJson("profile image updated successfully."),
-          profileImage: user.profileImage,
-        });
+      return res.status(200).json({
+        ...getSuccessJson("profile image updated successfully."),
+        profileImage: user.profileImage,
+      });
     } catch (e) {
       console.log(e);
       return res.status(500).json(getErrorJson("FAILED TO DELETE IMAGE"));

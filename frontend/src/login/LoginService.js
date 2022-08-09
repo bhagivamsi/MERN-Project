@@ -1,6 +1,6 @@
 const { default: axios } = require("axios");
 const { BACKEND_BASE_URL } = require("../Common/Config");
-const { LOGIN ,store} = require("../redux/ReduxConfig");
+const { LOGIN, store } = require("../redux/ReduxConfig");
 
 function LoginHandler(email, password, updatLoginStatusMessage) {
   axios
@@ -10,7 +10,13 @@ function LoginHandler(email, password, updatLoginStatusMessage) {
       updatLoginStatusMessage(res.data.status);
       store.dispatch({
         type: LOGIN,
-        payload: res.data.accessToken,
+        payload: {
+          token: res.data.accessToken,
+          firstName: res.data.firstName,
+          lastName: res.data.lastName,
+          email: email,
+          role: res.data.role,
+        },
       });
     })
     .catch((e) => {

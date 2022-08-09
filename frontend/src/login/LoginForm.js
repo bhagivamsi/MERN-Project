@@ -22,8 +22,14 @@ function LoginForm() {
   };
 
   useEffect(() => {
-    if (jwttokenSelector(store.getState()).length > 1) {
-      navigate("/profile", { replace: false });
+    if (
+      jwttokenSelector(store.getState()) !== undefined &&
+      jwttokenSelector(store.getState()).length > 1
+    ) {
+      navigate("/", { replace: false });
+      // navigate("/admin/products", { replace: false });
+      // navigate("/admin/add-new-product", { replace: false });
+      // navigate("/profile", { replace: false });
     }
   }, [loginStatusMessage, navigate]);
 

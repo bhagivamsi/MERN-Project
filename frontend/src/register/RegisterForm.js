@@ -10,6 +10,8 @@ function RegisterForm() {
   let [password, updatePassword] = useState("");
   let [confirmPassword, updateConfirmPassword] = useState("");
   let [registerStatusMessage, updateRegisterStatusMessage] = useState("");
+  let [interests, updateinterests] = useState("");
+  let [phone, updatephone] = useState("");
 
   const RegisterSubmit = (e) => {
     e.preventDefault();
@@ -19,6 +21,8 @@ function RegisterForm() {
       email,
       password,
       confirmPassword,
+      interests,
+      phone,
       updateRegisterStatusMessage
     );
   };
@@ -94,6 +98,30 @@ function RegisterForm() {
           onChange={(e) => {
             updateConfirmPassword(e.target.value);
           }}
+        />{" "}
+      </Form.Group>
+      <Form.Group className="mb-3" controlId="formBasicInterests">
+        <Form.Label>
+          Interests <small>(comma seperated)</small>
+        </Form.Label>
+        <Form.Control
+          type="text"
+          placeholder=""
+          value={interests}
+          onChange={(e) => {
+            updateinterests(e.target.value);
+          }}
+        />
+      </Form.Group>
+      <Form.Group className="mb-3" controlId="formBasicphone">
+        <Form.Label>Phone Number</Form.Label>
+        <Form.Control
+          type="text"
+          placeholder=""
+          value={phone}
+          onChange={(e) => {
+            updatephone(e.target.value);
+          }}
         />
       </Form.Group>
       <div className="d-flex flex-row-reverse">
@@ -103,7 +131,7 @@ function RegisterForm() {
         {registerStatusMessage === "" ? (
           ""
         ) : (
-          <small className="text-danger m-auto" variant="danger" >
+          <small className="text-danger m-auto" variant="danger">
             {registerStatusMessage}
           </small>
         )}
