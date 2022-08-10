@@ -46,6 +46,7 @@ function RegisterForm() {
             <Form.Control
               type="text"
               placeholder=""
+              required
               value={firstname}
               onChange={(e) => {
                 updateFirstName(e.target.value);
@@ -59,6 +60,7 @@ function RegisterForm() {
             <Form.Control
               type="text"
               placeholder=""
+              required
               value={lastname}
               onChange={(e) => {
                 updateLastName(e.target.value);
@@ -71,6 +73,7 @@ function RegisterForm() {
         <Form.Label>Email</Form.Label>
         <Form.Control
           type="email"
+          pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
           placeholder=""
           value={email}
           onChange={(e) => {
@@ -82,6 +85,8 @@ function RegisterForm() {
         <Form.Label>Password</Form.Label>
         <Form.Control
           type="password"
+          minLength="8"
+          maxLength="16"
           placeholder=""
           value={password}
           onChange={(e) => {
@@ -94,6 +99,8 @@ function RegisterForm() {
         <Form.Control
           type="password"
           placeholder=""
+          minLength="8"
+          maxLength="16"
           value={confirmPassword}
           onChange={(e) => {
             updateConfirmPassword(e.target.value);

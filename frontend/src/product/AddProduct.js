@@ -1,5 +1,5 @@
 import React from "react";
-import { Form, Button} from "react-bootstrap";
+import { Form, Button } from "react-bootstrap";
 import { addProduct } from "./ProductService";
 import { useLocation, useParams } from "react-router-dom";
 
@@ -7,7 +7,7 @@ const { useState, useRef } = require("react");
 
 function AddProduct() {
   const { state } = useLocation();
-//   console.log(state);
+  //   console.log(state);
   const isAdd = state === null;
 
   let [name, updateName] = useState(isAdd ? "" : state.name);
@@ -25,7 +25,7 @@ function AddProduct() {
   let [image, updateImage] = useState("");
 
   const productId = useParams().product_id;
-//   console.log(productId);
+  //   console.log(productId);
 
   const addProductHandler = (e) => {
     e.preventDefault();
@@ -59,6 +59,7 @@ function AddProduct() {
         <Form.Control
           type="text"
           placeholder=""
+          required
           value={name}
           onChange={(e) => {
             updateName(e.target.value);
@@ -70,6 +71,7 @@ function AddProduct() {
         <Form.Control
           type="text"
           placeholder=""
+          required
           value={category}
           onChange={(e) => {
             updateCategory(e.target.value);
@@ -81,6 +83,8 @@ function AddProduct() {
         <Form.Control
           type="text"
           placeholder=""
+          required
+          pattern="[0-9]+"
           value={price}
           onChange={(e) => {
             updatePrice(e.target.value);
@@ -92,6 +96,7 @@ function AddProduct() {
         <Form.Control
           type="text"
           placeholder=""
+          pattern="[0-9]+"
           value={discountPrice}
           onChange={(e) => {
             updateDiscountPrice(e.target.value);
@@ -103,6 +108,7 @@ function AddProduct() {
         <Form.Control
           ref={inputRef}
           type="file"
+          required
           onChange={handleDisplayFileDetails}
           accept="image/*"
         />
@@ -112,6 +118,7 @@ function AddProduct() {
         <Form.Control
           as="textarea"
           placeholder=""
+          required
           value={description}
           onChange={(e) => {
             updateDescription(e.target.value);

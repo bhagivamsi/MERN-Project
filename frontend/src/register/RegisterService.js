@@ -14,7 +14,7 @@ function RegisterService(
 ) {
   if (password !== confirmPassword) {
     updateRegisterStatusMessage(
-      "Password and Confirm Password are not mathcing"
+      "Passwords are not mathcing"
     );
     return;
   }

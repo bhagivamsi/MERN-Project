@@ -42,6 +42,7 @@ function LoginForm() {
         <Form.Control
           type="email"
           placeholder=""
+          required
           value={email}
           onChange={(e) => {
             updateEmail(e.target.value);
@@ -54,6 +55,7 @@ function LoginForm() {
         <Form.Control
           type="password"
           placeholder=""
+          required
           value={password}
           onChange={(e) => {
             updatePassword(e.target.value);
