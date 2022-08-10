@@ -60,6 +60,7 @@ function AddProduct() {
           type="text"
           placeholder=""
           required
+          maxLength="64"
           value={name}
           onChange={(e) => {
             updateName(e.target.value);
@@ -119,6 +120,7 @@ function AddProduct() {
           as="textarea"
           placeholder=""
           required
+          minLength="20"
           value={description}
           onChange={(e) => {
             updateDescription(e.target.value);
