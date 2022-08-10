@@ -94,7 +94,9 @@ store.subscribe(() => {
   saveState(store.getState());
 });
 
-export const jwttokenSelector = (state) => state.loginReducer.token;
+export const jwttokenSelector = (state) =>
+  state.loginReducer === null ? null : state.loginReducer.token;
+
 export const isUserLoggedInSelector = (state) =>
   !(jwttokenSelector(state) === 0);
 export const userInfoSelector = (state) => {

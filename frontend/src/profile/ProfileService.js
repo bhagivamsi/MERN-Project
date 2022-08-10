@@ -4,7 +4,7 @@ const {
   BACKEND_BASE_IMAGE_URL,
   DEFAULT_PROFILE_PHOTO,
 } = require("../Common/Config");
-const { store, jwttokenSelector } = require("../redux/ReduxConfig");
+const { store, jwttokenSelector, LOGIN } = require("../redux/ReduxConfig");
 
 function updateAddressInfo(
   streetAddress,
@@ -48,8 +48,14 @@ function getUserInfo(updateUserInfo, navigate) {
       updateUserInfo(res.data.user);
     })
     .catch((e) => {
-      console.log("Redirecting to login");
-      navigate("/login", { replace: true }, [navigate]);
+      // console.log("Redirecting to login");
+
+      store.dispatch({
+        type: LOGIN,
+        payload: null,
+      });
+      updateUserInfo(null);
+      // navigate("/login", { replace: true }, [navigate]);
     });
 }
 
@@ -85,6 +91,19 @@ function uploadProfileImage(fileInfo, profilePhotoRef) {
     })
     .catch((e) => console.log(e));
 }
+
+// function validateJwt() {
+//   axios
+//     .get(BACKEND_BASE_URL + "/api/v1/users/validate", {
+//       headers: {
+//         Authorization: jwttokenSelector(store.getState()),
+//       },
+//     })
+//     .then((res) => {
+//       console.log(res);
+//     })
+//     .catch((e) => console.log(e));
+// }
 
 exports.updateAddressInfo = updateAddressInfo;
 exports.getUserInfo = getUserInfo;

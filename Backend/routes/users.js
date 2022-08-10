@@ -11,11 +11,12 @@ const { registerJsonChecks, loginJsonChecks } = require("../Common/Constants");
 const { registerHandler } = require("../handlers/user/userCreateHandler");
 const { loginHandler } = require("../handlers/user/loginHandler");
 const {
-  userDetailsGetHandler,
+  userDetailsGetHandler,validateUser
 } = require("../handlers/user/userDetailsGetHandler");
 
 router.post("/register", registerJsonChecks, registerHandler());
 router.post("/login", loginJsonChecks, loginHandler());
 router.get("/", auth, userDetailsGetHandler());
+router.get("/validate", validateUser());
 
 module.exports = router;

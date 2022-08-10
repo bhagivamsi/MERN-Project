@@ -24,6 +24,7 @@ function LoginForm() {
   useEffect(() => {
     if (
       jwttokenSelector(store.getState()) !== undefined &&
+      jwttokenSelector(store.getState()) !== null &&
       jwttokenSelector(store.getState()).length > 1
     ) {
       navigate("/", { replace: false });

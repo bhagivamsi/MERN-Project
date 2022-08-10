@@ -5,13 +5,8 @@ import { UserInfoDisplay } from "./UserInfoDisplay";
 import { useNavigate } from "react-router-dom";
 import { getUserInfo } from "./ProfileService";
 
-const { store, jwttokenSelector } = require("../redux/ReduxConfig");
-
 export default function ProfileSection() {
   const navigate = useNavigate();
-  if (jwttokenSelector(store.getState()) === 0) {
-    navigate("/login", { replace: true }, [navigate]);
-  }
 
   const [userInfo, updateUserInfo] = useState();
 
@@ -19,11 +14,35 @@ export default function ProfileSection() {
     getUserInfo(updateUserInfo, navigate);
   }, [navigate]);
 
-  return (
+  // if (jwttokenSelector(store.getState()) === 0) {
+  //   return (
+  //     <h1>
+  //       You need to login to access your profile.{" "}
+  //       <p onClick={(e) => navigate("/login", { replace: true }, [navigate])}>
+  //         Click Here to login
+  //       </p>
+  //     </h1>
+  //   );
+  // }
+
+  return userInfo === null ? (
+    <Container className="h-auto align-middle mt-5 mb-5 border  border-1 p-4 col-10 border-dark">
+      <h4>
+        You need to login to access your profile.{" "}
+        <p
+          role="button"
+          className="text-primary"
+          onClick={(e) => navigate("/login", { replace: true }, [navigate])}
+        >
+          Click Here to login
+        </p>
+      </h4>
+    </Container>
+  ) : (
     <Container className="h-auto align-middle mt-5 mb-5 border  border-1 p-4 col-10 border-dark">
       <Row>
         <Col xs lg="6">
-          <UserImageForm userInfo={userInfo} updateUserInfo={updateUserInfo}/>
+          <UserImageForm userInfo={userInfo} updateUserInfo={updateUserInfo} />
         </Col>
         <Col xs lg="6">
           <UserInfoDisplay userInfo={userInfo} />

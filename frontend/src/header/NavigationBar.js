@@ -35,7 +35,11 @@ function NavigationBar() {
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="me-auto">
-          <Nav.Link href="#">Home</Nav.Link>
+          <Nav.Link
+            onClick={() => navigate("/", { replace: false }, [navigate])}
+          >
+            Home
+          </Nav.Link>
           <Nav.Link href="#link">Departments</Nav.Link>
           <Nav.Link href="#link">Offers</Nav.Link>
           <Nav.Link
