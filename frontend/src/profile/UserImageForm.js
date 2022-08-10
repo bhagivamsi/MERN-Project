@@ -33,13 +33,18 @@ export function UserImageForm({ userInfo, updateUserInfo }) {
       <Row className="d-flex justify-content-center mb-3">
         <img
           className="rounded-circle w-50"
+          data-testid="profile-image"
           ref={profilePhotoRef}
           alt="Profile"
         />
       </Row>
       <Row>
         <Col className="d-flex justify-content-center">
-          <Button className="bg-warning" onClick={deleteProfileHandler}>
+          <Button
+            className="bg-warning"
+            data-testid="profile-delete-button"
+            onClick={deleteProfileHandler}
+          >
             Delete Image
           </Button>
         </Col>
@@ -51,7 +56,9 @@ export function UserImageForm({ userInfo, updateUserInfo }) {
             type="file"
             accept="image/*"
           />
-          <Button onClick={handleUpload}>Upload</Button>
+          <Button data-testid="profile-upload-button" onClick={handleUpload}>
+            Upload
+          </Button>
         </Col>
       </Row>
     </>

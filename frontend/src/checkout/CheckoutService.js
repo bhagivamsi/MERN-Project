@@ -1,3 +1,4 @@
+const { useNavigate } = require("react-router-dom");
 const { default: axios } = require("axios");
 const { BACKEND_BASE_URL } = require("../Common/Config");
 const {
@@ -8,6 +9,7 @@ const {
 } = require("../redux/ReduxConfig");
 
 function PlaceOrder(user, address, productId) {
+  const navigate = useNavigate();
   let cart;
   if (productId === undefined || productId === null) {
     cart = cartForCheckoutSelector(store.getState());
@@ -35,13 +37,14 @@ function PlaceOrder(user, address, productId) {
     .then((res) => {
       //clear cart in store
       console.log(res.data.status);
+      navigate("/orders", { replace: true }, [navigate]);
       store.dispatch({
         type: CLEAR_CART,
       });
-      alert(res.data.message);
     })
     .catch((e) => {
       console.log(e);
     });
 }
+
 exports.PlaceOrder = PlaceOrder;

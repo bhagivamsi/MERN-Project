@@ -47,6 +47,7 @@ function RegisterForm() {
               type="text"
               placeholder=""
               required
+              data-testid="register-first-name"
               value={firstname}
               onChange={(e) => {
                 updateFirstName(e.target.value);
@@ -61,6 +62,7 @@ function RegisterForm() {
               type="text"
               placeholder=""
               required
+              data-testid="register-last-name"
               value={lastname}
               onChange={(e) => {
                 updateLastName(e.target.value);
@@ -75,6 +77,7 @@ function RegisterForm() {
           type="email"
           pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
           placeholder=""
+          data-testid="register-email"
           value={email}
           onChange={(e) => {
             updateEmail(e.target.value);
@@ -88,6 +91,7 @@ function RegisterForm() {
           minLength="8"
           maxLength="16"
           placeholder=""
+          data-testid="register-password"
           value={password}
           onChange={(e) => {
             updatePassword(e.target.value);
@@ -101,6 +105,7 @@ function RegisterForm() {
           placeholder=""
           minLength="8"
           maxLength="16"
+          data-testid="register-confirm-password"
           value={confirmPassword}
           onChange={(e) => {
             updateConfirmPassword(e.target.value);
@@ -132,7 +137,12 @@ function RegisterForm() {
         />
       </Form.Group>
       <div className="d-flex flex-row-reverse">
-        <Button variant="primary" type="submit" className="w-25">
+        <Button
+          variant="primary"
+          type="submit"
+          className="w-25"
+          data-testid="register-submit"
+        >
           Register
         </Button>
         {registerStatusMessage === "" ? (

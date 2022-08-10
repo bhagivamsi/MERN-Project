@@ -19,6 +19,7 @@ export function HomePageTopCategories() {
           bg="secondary"
           text="white"
           role="button"
+          data-testid="homepage-category"
           key={item._id}
           onClick={() =>
             navigate("/categories/" + item._id, { replace: false }, [navigate])

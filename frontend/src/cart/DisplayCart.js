@@ -78,11 +78,15 @@ function DisplayCart() {
         <Row>
           <Col>&nbsp;</Col>
           <Col lg="6">
-            <p className="d-flex justify-content-end">
+            <p
+              className="d-flex justify-content-end"
+              data-testid="cart-grand-total"
+            >
               Grand Total ${grandTotal}
             </p>
             <Button
               className="d-flex justify-content-end"
+              data-testid="cart-button"
               onClick={checkoutEvent}
             >
               Checkout

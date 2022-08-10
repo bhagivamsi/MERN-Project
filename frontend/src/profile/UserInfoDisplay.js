@@ -20,25 +20,25 @@ export function UserInfoDisplay({ userInfo }) {
 
   return (
     <>
-      <Row>
+      <Row className="mb-3">
         <Col>
           <p className="mb-0">Firstname</p>
-          <p className="fw-bold">
+          <span className="fw-bold" data-testid="profile-first-name">
             {userInfo === undefined ? "" : userInfo.firstName}
-          </p>
+          </span>
         </Col>
         <Col>
           <p className="mb-0">Lastname</p>
-          <p className="fw-bold">
+          <span className="fw-bold" data-testid="profile-last-name">
             {userInfo === undefined ? "-" : userInfo.lastName}
-          </p>
+          </span>
         </Col>
       </Row>
       <Row>
         <p className="mb-0">Email</p>
-        <p className="fw-bold">
+        <span className="fw-bold" data-testid="profile-email">
           {userInfo === undefined ? "-" : userInfo.email}
-        </p>
+        </span>
       </Row>
       <Row>
         <p className="mb-0">Phone</p>
@@ -66,6 +66,7 @@ export function UserInfoDisplay({ userInfo }) {
             </Col>
             <Col className="align-middle">
               <Button
+                data-testid="address-edit-button"
                 onClick={() => {
                   updateDisplayEditAddress(true);
                 }}

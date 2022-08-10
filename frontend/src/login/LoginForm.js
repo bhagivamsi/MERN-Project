@@ -43,6 +43,7 @@ function LoginForm() {
           type="email"
           placeholder=""
           required
+          data-testid="login-email"
           value={email}
           onChange={(e) => {
             updateEmail(e.target.value);
@@ -56,6 +57,7 @@ function LoginForm() {
           type="password"
           placeholder=""
           required
+          data-testid="login-password"
           value={password}
           onChange={(e) => {
             updatePassword(e.target.value);
@@ -63,7 +65,7 @@ function LoginForm() {
         />
       </Form.Group>
       <div className="d-flex flex-row-reverse">
-        <Button variant="primary" type="submit" className="w-25">
+        <Button variant="primary" type="submit" className="w-25" data-testid="login-submit">
           Login
         </Button>
         {loginStatusMessage === "" ? (

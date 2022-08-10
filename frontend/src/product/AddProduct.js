@@ -139,7 +139,7 @@ function AddProduct() {
         />
       </Form.Group>
       <div className="d-flex flex-row-reverse">
-        <Button type="submit" className="w-25">
+        <Button type="submit" className="w-25"  data-testid="add-new-button">
           {isAdd ? "Add new product" : "Edit Product"}
         </Button>
         <p ref={addProductStatus} className="m-auto"></p>

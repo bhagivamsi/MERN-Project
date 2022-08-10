@@ -6,7 +6,7 @@ import { HomepageTopProducts } from "./HomepageTopProducts";
 function HomePageSection() {
   return (
     <>
-      <HomepageCarousel />
+      <HomepageCarousel data-testid="homepage-banner" />
       <HomePageTopCategories className="mt-5" />
       <HomepageTopProducts className="mt-5" />
     </>

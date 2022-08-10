@@ -29,7 +29,7 @@ function DisplayProducts() {
         </div>
 
         {products.map((t) => (
-          <Row key={t._id}>
+          <Row key={t._id} data-testid="add-new-button">
             <Col>
               <p className="mb-0">1X {t.name}</p>
               <small className="mb-5">Price ${t.price}</small>

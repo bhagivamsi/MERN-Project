@@ -10,7 +10,13 @@ export function HomepageTopProducts() {
   }, []);
 
   let cardGroup = (products) => {
-    return products.map((item) => <ProductCard key={item._id} product={item} />);
+    return products.map((item) => (
+      <ProductCard
+        key={item._id}
+        product={item}
+        data-testid="homepage-product"
+      />
+    ));
   };
 
   return (

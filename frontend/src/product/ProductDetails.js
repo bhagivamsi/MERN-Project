@@ -39,6 +39,7 @@ function ProductDetails() {
         <img
           alt="Placeholder"
           className="img-fluid"
+          data-testid="product-page-banner"
           style={{ height: "300px", width: "100%", objectFit: "cover" }}
           ref={productImageRef}
         />
@@ -55,6 +56,7 @@ function ProductDetails() {
             <Col>
               <Button
                 className="w-75 bg-warning text-dark border-0"
+                data-testid="product-page-buynow"
                 onClick={(e) => buyNow(e, product)}
               >
                 Buy now
@@ -62,7 +64,7 @@ function ProductDetails() {
             </Col>
             <Col>
               <Button
-                className="w-75 border-0"
+                className="w-75 border-0" data-testid="product-page-add-to-cart"
                 onClick={(e) => addToCart(e, product)}
               >
                 Add to cart

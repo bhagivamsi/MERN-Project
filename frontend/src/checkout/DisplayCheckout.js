@@ -114,7 +114,12 @@ function DisplayCheckout() {
           />
         </Form.Group>
         <div className="d-flex flex-row-reverse">
-          <Button variant="primary" type="submit" className="w-25">
+          <Button
+            variant="primary" 
+            type="submit" 
+            className="w-25" 
+            data-testid="checkout-button"
+          >
             Place Order
           </Button>
         </div>
