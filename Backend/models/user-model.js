@@ -7,7 +7,7 @@ var userSchema = mongoose.Schema({
   password: { type: String, required: false },
   email: { type: String, required: false },
   createdAt: { type: Date, default: Date.now() },
-  role: { type: String, enum: ROLES, required: false },
+  role: { type: String, enum: ROLES, required: false, default: ROLES.USER },
   address: {
     streetAddress: { type: String, required: false },
     city: { type: String, required: false },
