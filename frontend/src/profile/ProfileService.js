@@ -25,6 +25,7 @@ function updateAddressInfo(
       }
     )
     .then((res) => {
+      addressInfo={};
       console.log(res.data.status);
       addressInfo.streetAddress = streetAddress;
       addressInfo.city = city;

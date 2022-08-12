@@ -28,9 +28,17 @@ function DisplayOrders() {
         <div className="fs-1 mb-4">Your Orders</div>
         {orders.map((order) =>
           isLoggedIn && userInfo.role === "ADMIN" ? (
-            <AdminAction order={order} updateOrders={updateOrders} />
+            <AdminAction
+              order={order}
+              key={order._id}
+              updateOrders={updateOrders}
+            />
           ) : (
-            <UserAction order={order} updateOrders={updateOrders} />
+            <UserAction
+              order={order}
+              key={order._id}
+              updateOrders={updateOrders}
+            />
           )
         )}
       </Col>
@@ -44,7 +52,7 @@ function AdminAction({ order, updateOrders }) {
         <div className={order.isDelivered ? "text-success" : ""}>
           #{order._id}
         </div>
-        <div>{order.user.email}</div>
+        <div>{order.user === null ? "" : order.user.email}</div>
       </Col>{" "}
       <Col>
         <Col className="d-flex justify-content-center">

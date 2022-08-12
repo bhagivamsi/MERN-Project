@@ -4,11 +4,17 @@ import { updateAddressInfo } from "./ProfileService";
 
 export function AddressEditForm({ addressInfo, updateDisplayEditAddress }) {
   let [streetAddress, updateStreetAddress] = useState(
-    addressInfo.streetAddress
+    addressInfo === undefined ? "" : addressInfo.streetAddress
   );
-  let [city, updateCity] = useState(addressInfo.city);
-  let [state, updateState] = useState(addressInfo.state);
-  let [zipcode, updateZipCode] = useState(addressInfo.zipcode);
+  let [city, updateCity] = useState(
+    addressInfo === undefined ? "" : addressInfo.city
+  );
+  let [state, updateState] = useState(
+    addressInfo === undefined ? "" : addressInfo.state
+  );
+  let [zipcode, updateZipCode] = useState(
+    addressInfo === undefined ? "" : addressInfo.zipcode
+  );
 
   const addressUpdateHandler = (e) => {
     e.preventDefault();
