@@ -99,6 +99,10 @@ export const jwttokenSelector = (state) =>
 
 export const isUserLoggedInSelector = (state) =>
   !(jwttokenSelector(state) === 0);
+
+export const isAdminSelector = (state) =>
+  state.loginReducer !== null && state.loginReducer.role === "ADMIN";
+
 export const userInfoSelector = (state) => {
   let clonedState = {};
   Object.assign(clonedState, state.loginReducer);
