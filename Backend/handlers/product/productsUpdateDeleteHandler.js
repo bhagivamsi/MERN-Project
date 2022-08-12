@@ -3,6 +3,7 @@ const {
 } = require("../../Common/CheckForValidationErrors");
 const { getErrorJson, getSuccessJson } = require("../../Common/Constants");
 const Product = require("../../models/products-model");
+const Category = require("../../models/category-model");
 
 function productUpdateHandler() {
   return async (req, res) => {
@@ -13,11 +14,30 @@ function productUpdateHandler() {
     console.log("Updating product : " + req.params.productId);
     // console.log(req.body);
     try {
+      let category = await Category.findOne({ name: req.body.category });
+      if (category == null) {
+        category = new Category({ name: req.params.category });
+        category = await category.save();
+      }
+      let productInfo = req.body;
+      productInfo.category = category;
+
+      if (req.files !== null) {
+        let productImageData = req.files.productImage;
+        productImageData
+          .mv("./public/images/" + productImageData.name)
+          .then((res) => {
+            let promiseDone = true;
+          });
+        productInfo.image = productImageData.name;
+      } else {
+        delete productInfo['image'];
+      }
       let productToUpdate = await Product.findByIdAndUpdate(
         {
           _id: req.params.productId,
         },
-        req.body
+        productInfo
       );
       console.log(productToUpdate);
 
