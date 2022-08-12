@@ -1,7 +1,13 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { Form, Nav, Navbar } from "react-bootstrap";
-import { cartSelector, store, LOGOUT } from "../redux/ReduxConfig";
+import {
+  cartSelector,
+  store,
+  LOGOUT,
+  isAdminSelector,
+} from "../redux/ReduxConfig";
 import { useNavigate } from "react-router-dom";
+import { getUserInfo } from "../profile/ProfileService";
 
 function NavigationBar() {
   let cartLengthRef = useRef(null);
@@ -21,15 +27,25 @@ function NavigationBar() {
     );
   });
 
+  const [userInfo, updateUserInfo] = useState();
+
+  useEffect(() => {
+    getUserInfo(updateUserInfo, navigate);
+  }, [navigate]);
+
   const logoutEvent = () => {
     store.dispatch({
       type: LOGOUT,
     });
+    updateUserInfo(null);
   };
 
   return (
     <Navbar bg="light" expand="lg">
-      <Navbar.Brand href="#home" className="pl-1">
+      <Navbar.Brand
+        onClick={() => navigate("/", { replace: false }, [navigate])}
+        className="pl-1" role="button"
+      >
         Shop 24x7
       </Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -40,16 +56,53 @@ function NavigationBar() {
           >
             Home
           </Nav.Link>
-          <Nav.Link href="#link">Departments</Nav.Link>
-          <Nav.Link href="#link">Offers</Nav.Link>
+          <Nav.Link href="#link" disabled>
+            Departments
+          </Nav.Link>
+          <Nav.Link href="#link" disabled>
+            Offers
+          </Nav.Link>
           <Nav.Link
             onClick={() => navigate("/profile", { replace: false }, [navigate])}
           >
             Profile
           </Nav.Link>
-          <Nav.Link onClick={() => logoutEvent()}>Logout</Nav.Link>
+          <Nav.Link
+            onClick={() => navigate("/orders", { replace: false }, [navigate])}
+          >
+            Manage Orders
+          </Nav.Link>
+          {userInfo !== null ? (
+            <Nav.Link onClick={() => logoutEvent()}>Logout</Nav.Link>
+          ) : (
+            <Nav.Link
+              onClick={() => navigate("/login", { replace: false }, [navigate])}
+            >
+              Login
+            </Nav.Link>
+          )}
         </Nav>
         <Nav>
+          {isAdminSelector(store.getState()) ? (
+            <>
+              <Nav.Link
+                onClick={() =>
+                  navigate("/admin/products", { replace: false }, [navigate])
+                }
+              >
+                Manage Products
+              </Nav.Link>
+              <Nav.Link
+                onClick={() =>
+                  navigate("/admin/add-new-product", { replace: false }, [
+                    navigate,
+                  ])
+                }
+              >
+                Add New Product
+              </Nav.Link>
+            </>
+          ) : null}
           <Form className="d-flex">
             <Form.Control
               type="search"
