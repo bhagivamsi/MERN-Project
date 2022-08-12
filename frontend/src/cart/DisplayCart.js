@@ -26,7 +26,6 @@ function DisplayCart() {
 
   const navigate = useNavigate();
   const checkoutEvent = () => {
-   
     navigate("/checkout", { replace: false }, [navigate]);
   };
 
@@ -69,7 +68,12 @@ function DisplayCart() {
             </Col>
             <Col>
               <p className="text-end">
-                ${product.discountPrice * product.quantity}
+                $
+                {(product.discountPrice === undefined ||
+                product.discountPrice === null ||
+                product.discountPrice === 0
+                  ? product.price
+                  : product.discountPrice) * product.quantity}
               </p>
             </Col>
             <hr />
