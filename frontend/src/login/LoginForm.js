@@ -1,8 +1,9 @@
 import { Form, Button, Row, Col } from "react-bootstrap";
 import { LoginHandler } from "./LoginService";
 import { useNavigate } from "react-router-dom";
-const { store, jwttokenSelector } = require("../redux/ReduxConfig");
+import { getUserInfo } from "../profile/ProfileService";
 
+const { store, jwttokenSelector } = require("../redux/ReduxConfig");
 const { useState, useEffect } = require("react");
 
 function LoginForm() {
@@ -21,18 +22,23 @@ function LoginForm() {
     navigate("/register", { replace: false }, [navigate]);
   };
 
+  const [userInfo, updateUserInfo] = useState();
+
   useEffect(() => {
-    if (
-      jwttokenSelector(store.getState()) !== undefined &&
-      jwttokenSelector(store.getState()) !== null &&
-      jwttokenSelector(store.getState()).length > 1
-    ) {
+    getUserInfo(updateUserInfo, navigate);
+  }, [navigate]);
+
+  useEffect(() => {
+    if (loginStatusMessage.toLowerCase() === "success") {
+      // jwttokenSelector(store.getState()) !== undefined &&
+      // jwttokenSelector(store.getState()) !== null &&
+      // jwttokenSelector(store.getState()).length > 1
       navigate("/", { replace: false });
       // navigate("/admin/products", { replace: false });
       // navigate("/admin/add-new-product", { replace: false });
       // navigate("/profile", { replace: false });
     }
-  }, [loginStatusMessage, navigate]);
+  }, [loginStatusMessage]);
 
   return (
     <Form onSubmit={LoginSubmit}>
@@ -65,7 +71,12 @@ function LoginForm() {
         />
       </Form.Group>
       <div className="d-flex flex-row-reverse">
-        <Button variant="primary" type="submit" className="w-25" data-testid="login-submit">
+        <Button
+          variant="primary"
+          type="submit"
+          className="w-25"
+          data-testid="login-submit"
+        >
           Login
         </Button>
         {loginStatusMessage === "" ? (
