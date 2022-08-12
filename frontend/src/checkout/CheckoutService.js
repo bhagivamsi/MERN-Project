@@ -1,4 +1,3 @@
-const { useNavigate } = require("react-router-dom");
 const { default: axios } = require("axios");
 const { BACKEND_BASE_URL } = require("../Common/Config");
 const {
@@ -8,8 +7,7 @@ const {
   CLEAR_CART,
 } = require("../redux/ReduxConfig");
 
-function PlaceOrder(user, address, productId) {
-  const navigate = useNavigate();
+function PlaceOrder(user, address, productId, updateStatus) {
   let cart;
   if (productId === undefined || productId === null) {
     cart = cartForCheckoutSelector(store.getState());
@@ -37,7 +35,7 @@ function PlaceOrder(user, address, productId) {
     .then((res) => {
       //clear cart in store
       console.log(res.data.status);
-      navigate("/orders", { replace: true }, [navigate]);
+      updateStatus(true);
       store.dispatch({
         type: CLEAR_CART,
       });
