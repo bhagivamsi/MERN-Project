@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   store,
   userInfoSelector,
@@ -7,9 +7,12 @@ import {
 import { Form, Button } from "react-bootstrap";
 import { PlaceOrder } from "./CheckoutService";
 import { useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function DisplayCheckout() {
   const { state: productId } = useLocation();
+
+  let [status, updateStatus] = useState(false);
 
   const [userInfo, updateUserInfo] = useState(
     userInfoSelector(store.getState())
@@ -32,12 +35,20 @@ function DisplayCheckout() {
 
   const isLoggedIn = isUserLoggedInSelector(store.getState());
 
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (status === true) {
+      navigate("/orders", { replace: true }, [navigate]);
+    }
+  }, [status]);
+
   return (
     <>
       <Form
         onSubmit={(e) => {
           e.preventDefault();
-          PlaceOrder(userInfo, addressInfo, productId);
+          PlaceOrder(userInfo, addressInfo, productId, updateStatus);
         }}
       >
         <header className="h3">User Info</header>
@@ -115,9 +126,9 @@ function DisplayCheckout() {
         </Form.Group>
         <div className="d-flex flex-row-reverse">
           <Button
-            variant="primary" 
-            type="submit" 
-            className="w-25" 
+            variant="primary"
+            type="submit"
+            className="w-25"
             data-testid="checkout-button"
           >
             Place Order
