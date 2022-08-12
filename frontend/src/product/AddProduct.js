@@ -1,17 +1,26 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Form, Button } from "react-bootstrap";
 import { addProduct } from "./ProductService";
 import { useLocation, useParams } from "react-router-dom";
+import { isAdminSelector, store } from "../redux/ReduxConfig";
+import { useNavigate } from "react-router-dom";
 
 const { useState, useRef } = require("react");
 
 function AddProduct() {
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (!isAdminSelector(store.getState())) {
+      navigate("/", { replace: false }, [navigate]);
+    }
+  }, []);
+
   const { state } = useLocation();
   //   console.log(state);
   const isAdd = state === null;
 
   let [name, updateName] = useState(isAdd ? "" : state.name);
-  let [category, updateCategory] = useState(isAdd ? "" : state.category);
+  let [category, updateCategory] = useState(isAdd ? "" : state.category.name);
   let [price, updatePrice] = useState(isAdd ? "" : state.price);
   let [discountPrice, updateDiscountPrice] = useState(
     isAdd ? "" : state.discountPrice
@@ -85,7 +94,7 @@ function AddProduct() {
           type="text"
           placeholder=""
           required
-          pattern="[0-9]+"
+          pattern="[0-9]+.[0-9]*"
           value={price}
           onChange={(e) => {
             updatePrice(e.target.value);
@@ -97,7 +106,7 @@ function AddProduct() {
         <Form.Control
           type="text"
           placeholder=""
-          pattern="[0-9]+"
+          pattern="[0-9]+.[0-9]*"
           value={discountPrice}
           onChange={(e) => {
             updateDiscountPrice(e.target.value);
@@ -109,7 +118,7 @@ function AddProduct() {
         <Form.Control
           ref={inputRef}
           type="file"
-          required
+          required={isAdd ? true : false}
           onChange={handleDisplayFileDetails}
           accept="image/*"
         />
@@ -139,7 +148,7 @@ function AddProduct() {
         />
       </Form.Group>
       <div className="d-flex flex-row-reverse">
-        <Button type="submit" className="w-25"  data-testid="add-new-button">
+        <Button type="submit" className="w-25" data-testid="add-new-button">
           {isAdd ? "Add new product" : "Edit Product"}
         </Button>
         <p ref={addProductStatus} className="m-auto"></p>
